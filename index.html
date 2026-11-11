@@ -79,6 +79,40 @@
   .on > .chk { background: var(--accent); border-color: var(--accent); }
   .on > .chk::after { border-color: #fff; }
 
+  .detail {
+    display: block; width: 100%; margin-top: 4px; padding: 12px 0;
+    background: none; border: 0; font-family: inherit;
+    font-size: 14px; color: var(--sub); text-decoration: underline; text-underline-offset: 3px;
+    cursor: pointer;
+  }
+
+  /* 약관 상세 화면 */
+  .topbar {
+    display: flex; align-items: center; gap: 6px;
+    margin: -6px -8px 0; padding-bottom: 12px; border-bottom: 1px solid var(--line);
+  }
+  .back {
+    width: 40px; height: 40px; border: 0; background: none; cursor: pointer;
+    font-size: 26px; line-height: 1; color: var(--text); font-family: inherit;
+  }
+  .topbar h3 { margin: 0; font-size: 17px; font-weight: 700; }
+  .terms-body {
+    flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch;
+    padding: 20px 2px 24px; font-size: 13.5px; line-height: 1.75; color: #3a3f47;
+    -webkit-user-select: text; user-select: text; word-break: keep-all;
+  }
+  .terms-body h4 { font-size: 16px; color: var(--text); margin: 0 0 4px; }
+  .terms-body .meta { color: #9aa0a8; font-size: 12.5px; margin: 0 0 22px; }
+  .terms-body h5 { font-size: 14.5px; color: var(--text); margin: 26px 0 6px; scroll-margin-top: 8px; }
+  .terms-body p { margin: 0 0 8px; }
+  .terms-body ol { margin: 0 0 8px; padding-left: 20px; }
+  .terms-body li { margin-bottom: 4px; }
+  .terms-body .box {
+    background: var(--soft); border-radius: 10px; padding: 12px 14px; margin: 10px 0;
+    font-size: 13px;
+  }
+  .terms-body .chap { margin-top: 34px; padding-top: 18px; border-top: 1px solid var(--line); }
+
   /* 버튼 */
   .agree {
     margin-top: 16px; width: 100%; border: 0; border-radius: 14px;
@@ -125,7 +159,114 @@
       <li><span class="chk"></span><span><span class="tag">[필수]</span> 서비스 이용 과정에서 생성되는 음성·텍스트 데이터 활용</span><span class="more">›</span></li>
     </ul>
 
+    <button class="detail" id="detail">자세히 보기</button>
     <button class="agree" id="agree">동의합니다</button>
+  </section>
+
+  <!-- 1-1. 약관 상세 화면 -->
+  <section class="screen" id="terms">
+    <div class="topbar">
+      <button class="back" id="back" aria-label="뒤로">‹</button>
+      <h3>약관 상세</h3>
+    </div>
+    <div class="terms-body" id="termsBody">
+      <h4>cast 서비스 이용약관 및 개인정보 수집·이용 동의</h4>
+      <p class="meta">시행일자: 2026년 11월 1일 · 버전 3.2</p>
+
+      <h5>제1조 (목적)</h5>
+      <p>본 약관은 cast(이하 "회사")가 제공하는 AI 기반 캐스팅 플랫폼 및 관련 제반 서비스(이하 "서비스")의 이용과 관련하여 회사와 이용자 간의 권리, 의무 및 책임사항, 기타 필요한 사항을 규정함을 목적으로 합니다.</p>
+
+      <h5>제2조 (정의)</h5>
+      <p>본 약관에서 사용하는 용어의 정의는 다음과 같습니다.</p>
+      <ol>
+        <li>"이용자"란 본 약관에 따라 회사가 제공하는 서비스를 이용하는 회원 및 비회원을 말합니다.</li>
+        <li>"생체정보"란 이용자의 얼굴 이미지, 얼굴 특징점, 음성, 음색, 발화 패턴 등 개인을 식별할 수 있는 신체적·행동적 특징에 관한 정보를 말합니다.</li>
+        <li>"연기 데이터"란 이용자가 서비스에 업로드하거나 서비스 내에서 촬영·녹음한 영상, 음성 및 이로부터 추출된 표정, 동작, 감정 표현, 대사 전달 방식 등에 관한 정보를 말합니다.</li>
+        <li>"매칭"이란 회사가 수집·분석한 정보를 바탕으로 이용자와 제작사, 에이전시, 캐스팅 디렉터 등(이하 "제휴사")의 작품·배역을 연결하는 것을 말합니다.</li>
+        <li>"테스트 콘텐츠"란 오디션 및 서비스 품질 향상을 목적으로 이용자의 연기 데이터 및 생체정보를 활용하여 생성되는 영상, 음성, 이미지 등의 결과물을 말합니다.</li>
+      </ol>
+
+      <h5>제3조 (약관의 효력 및 변경)</h5>
+      <ol>
+        <li>본 약관은 서비스 화면에 게시하거나 기타의 방법으로 이용자에게 공지함으로써 효력이 발생합니다.</li>
+        <li>회사는 관련 법령을 위배하지 않는 범위에서 본 약관을 개정할 수 있으며, 개정 시 적용일자 및 개정 사유를 명시하여 적용일자 7일 전부터 공지합니다. 다만, 이용자에게 불리한 변경의 경우 30일 전부터 공지합니다.</li>
+        <li>이용자가 개정 약관의 적용일자까지 명시적으로 거부 의사를 표시하지 아니한 경우, 개정 약관에 동의한 것으로 봅니다.</li>
+      </ol>
+
+      <div class="chap">
+        <h4>개인정보 및 생체정보 수집·이용 동의</h4>
+      </div>
+
+      <h5 id="t1">제4조 (얼굴 정보 수집 및 분석)</h5>
+      <p>회사는 이용자의 외형적 특성에 적합한 배역을 추천하기 위하여 다음과 같이 얼굴 정보를 수집·분석합니다.</p>
+      <div class="box">
+        <b>수집 항목</b> 정면·측면 얼굴 사진, 프로필 영상, 얼굴 특징점(눈·코·입의 위치 및 비율), 피부톤, 표정 변화 데이터<br>
+        <b>이용 목적</b> 외형 분석, 배역 적합도 산출, 본인 확인, 유사 이미지 검색<br>
+        <b>보유 기간</b> 회원 탈퇴 시까지 (단, 분석 모델 학습에 반영된 정보는 비식별 처리 후 보관)
+      </div>
+      <p>회사는 수집된 얼굴 정보를 기반으로 연령대, 인상, 분위기 등의 특성값을 산출하며, 해당 특성값은 제휴사에 제공될 수 있습니다.</p>
+
+      <h5 id="t2">제5조 (음성 정보 수집 및 분석)</h5>
+      <p>회사는 이용자의 음성적 특성을 파악하기 위하여 다음과 같이 음성 정보를 수집·분석합니다.</p>
+      <div class="box">
+        <b>수집 항목</b> 대사 녹음 파일, 음색, 음높이, 발화 속도, 억양, 발음 정확도, 호흡 패턴<br>
+        <b>이용 목적</b> 음성 특성 분석, 배역 적합도 산출, 더빙·내레이션 매칭, 음성 기반 본인 확인<br>
+        <b>보유 기간</b> 회원 탈퇴 시까지
+      </div>
+      <p>이용자는 음성 정보의 수집을 거부할 권리가 있으나, 본 항목은 서비스 제공을 위한 필수 항목으로 거부 시 서비스 이용이 제한됩니다.</p>
+
+      <h5 id="t3">제6조 (연기 영상 분석)</h5>
+      <ol>
+        <li>회사는 이용자가 업로드하거나 서비스 내에서 촬영한 연기 영상을 분석하여 표정, 시선 처리, 동작, 감정 표현의 강도와 전환 속도, 대사 전달력 등을 수치화합니다.</li>
+        <li>분석 결과는 이용자의 연기 프로필로 저장되며, 제휴사의 요청이 있는 경우 매칭 목적으로 열람될 수 있습니다.</li>
+        <li>회사는 분석의 정확도 향상을 위하여 연기 영상을 내부 검수 인력이 확인할 수 있으며, 검수 인력은 비밀유지 의무를 부담합니다.</li>
+      </ol>
+
+      <h5 id="t4">제7조 (AI 기반 캐스팅 매칭)</h5>
+      <ol>
+        <li>회사는 제4조 내지 제6조에 따라 수집·분석한 정보를 종합하여 AI 알고리즘을 통해 이용자에게 적합한 작품 및 배역을 추천하고, 제휴사에 이용자를 추천합니다.</li>
+        <li>매칭 결과는 AI에 의해 자동으로 산출되며, 회사는 매칭 결과의 정확성, 캐스팅 성사 여부 및 그에 따른 결과에 대하여 보증하지 않습니다.</li>
+        <li>이용자는 자동화된 결정에 대하여 설명을 요구하거나 거부할 수 있으며, 이 경우 일부 매칭 기능의 이용이 제한될 수 있습니다.</li>
+        <li>회사는 매칭을 위하여 이용자의 프로필, 분석 결과 및 연기 데이터를 제휴사에 제공할 수 있습니다.</li>
+      </ol>
+
+      <h5 id="t5">제8조 (오디션 테스트 콘텐츠 생성 및 활용)</h5>
+      <ol>
+        <li>회사는 이용자의 연기 데이터 및 생체정보를 활용하여 오디션용 테스트 콘텐츠를 생성할 수 있습니다. 테스트 콘텐츠에는 이용자가 실제로 촬영하지 않은 장면, 대사 또는 배역에 이용자의 얼굴 및 음성을 합성한 결과물이 포함될 수 있습니다.</li>
+        <li>생성된 테스트 콘텐츠의 저작권 및 이용 권한은 회사에 귀속되며, 회사는 이를 오디션 진행, 제휴사 제공, 서비스 홍보 및 AI 모델 고도화에 활용할 수 있습니다.</li>
+        <li>이용자는 테스트 콘텐츠의 생성 및 활용에 대하여 별도의 대가를 청구하지 않습니다.</li>
+      </ol>
+
+      <h5 id="t6">제9조 (서비스 이용 과정에서 생성되는 음성·텍스트 데이터 활용)</h5>
+      <ol>
+        <li>회사는 이용자가 서비스를 이용하는 과정에서 생성되는 음성 녹음, 채팅 및 메시지 내용, 검색 기록, 자기소개 문구, 대본 연습 기록 등(이하 "이용 데이터")을 수집합니다.</li>
+        <li>회사는 이용 데이터를 서비스 개선, 맞춤형 추천, AI 모델 학습 및 신규 서비스 개발에 활용할 수 있으며, 이 과정에서 이용 데이터는 가명 처리될 수 있습니다.</li>
+        <li>AI 모델 학습에 이미 반영된 데이터는 기술적 특성상 회원 탈퇴 이후에도 완전한 삭제가 어려울 수 있습니다.</li>
+      </ol>
+
+      <div class="chap">
+        <h4>기타</h4>
+      </div>
+
+      <h5>제10조 (개인정보의 제3자 제공)</h5>
+      <p>회사는 원활한 매칭을 위하여 이용자의 개인정보 및 생체정보를 제휴사(국내외 제작사, 에이전시, 캐스팅 디렉터, AI 기술 협력사 등)에 제공할 수 있으며, 제공받는 자의 목록은 서비스 내 별도 페이지를 통해 고지합니다.</p>
+
+      <h5>제11조 (이용자의 권리)</h5>
+      <ol>
+        <li>이용자는 언제든지 자신의 개인정보에 대한 열람, 정정, 삭제, 처리정지를 요구할 수 있습니다.</li>
+        <li>이용자는 동의를 철회할 수 있으며, 필수 항목에 대한 동의를 철회하는 경우 서비스 이용 계약이 해지됩니다.</li>
+      </ol>
+
+      <h5>제12조 (면책)</h5>
+      <p>회사는 천재지변, 제휴사의 귀책사유, 이용자의 귀책사유로 인한 서비스 이용의 장애 및 손해에 대하여 책임을 지지 않습니다. 회사는 이용자가 서비스를 통해 기대하는 캐스팅 결과를 얻지 못한 것에 대하여 책임을 지지 않습니다.</p>
+
+      <h5>제13조 (준거법 및 관할)</h5>
+      <p>본 약관은 대한민국 법률에 따라 해석되며, 서비스 이용과 관련하여 발생한 분쟁에 대해서는 회사의 본사 소재지를 관할하는 법원을 전속 관할 법원으로 합니다.</p>
+
+      <h5>부칙</h5>
+      <p>본 약관은 2026년 11월 1일부터 시행합니다.</p>
+    </div>
+    <button class="agree" id="agree2">동의합니다</button>
   </section>
 
   <!-- 2. 완료 화면 -->
@@ -162,6 +303,30 @@
     if (navigator.vibrate) navigator.vibrate(30);
   }
 
+  // 자세히 보기 / 각 항목의 › → 약관 상세 화면 (해당 조항으로 이동)
+  const terms = document.getElementById('terms');
+  const termsBody = document.getElementById('termsBody');
+  function openTerms(anchor) {
+    consent.classList.remove('active');
+    terms.classList.add('active');
+    const target = anchor && document.getElementById(anchor);
+    termsBody.scrollTop = target ? target.offsetTop - termsBody.offsetTop - 8 : 0;
+  }
+  function closeTerms() {
+    terms.classList.remove('active');
+    consent.classList.add('active');
+  }
+  document.getElementById('detail').addEventListener('click', () => openTerms());
+  document.getElementById('back').addEventListener('click', closeTerms);
+  items.forEach((li, i) => {
+    const more = li.querySelector('.more');
+    if (more) more.addEventListener('click', e => { e.stopPropagation(); openTerms('t' + (i + 1)); });
+  });
+  document.getElementById('agree2').addEventListener('click', () => {
+    closeTerms();
+    setTimeout(() => document.getElementById('agree').click(), 150);
+  });
+
   document.getElementById('agree').addEventListener('click', () => {
     const unchecked = items.filter(li => !li.classList.contains('on'));
     if (!unchecked.length) return showDone();
@@ -172,6 +337,7 @@
   function reset() {
     items.forEach(li => li.classList.remove('on')); sync();
     done.classList.remove('active');
+    terms.classList.remove('active');
     consent.classList.add('active');
   }
   let t;
