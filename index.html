@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="theme-color" content="#ffffff">
+<title>동의영화 소품</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #ffffff;
+    --text: #111418;
+    --sub: #6b7280;
+    --line: #e5e7eb;
+    --soft: #f4f5f7;
+    --accent: #2f6bff;
+    --accent-press: #1f55db;
+    --check-off: #d1d5db;
+  }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body {
+    margin: 0; height: 100%;
+    background: var(--bg); color: var(--text);
+    font-family: "Noto Sans KR", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", sans-serif;
+    overscroll-behavior: none;
+    -webkit-user-select: none; user-select: none;
+  }
+  .app {
+    max-width: 480px; margin: 0 auto; height: 100%;
+    display: flex; flex-direction: column;
+    padding: calc(env(safe-area-inset-top) + 20px) 24px calc(env(safe-area-inset-bottom) + 20px);
+  }
+  .screen { display: none; flex: 1; flex-direction: column; min-height: 0; }
+  .screen.active { display: flex; }
+
+  /* 상단 */
+  .brand { display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 15px; color: var(--sub); }
+  .brand i {
+    width: 22px; height: 22px; border-radius: 7px; background: var(--accent);
+    display: inline-block; position: relative;
+  }
+  .brand i::after {
+    content: ""; position: absolute; inset: 6px; border-radius: 50%; background: #fff;
+  }
+  h1 { font-size: 26px; line-height: 1.38; margin: 28px 0 10px; letter-spacing: -0.02em; }
+  .lead { font-size: 15px; color: var(--sub); margin: 0 0 28px; line-height: 1.55; }
+
+  /* 약관 목록 */
+  .all {
+    display: flex; align-items: center; gap: 12px;
+    background: var(--soft); border-radius: 14px; padding: 18px 16px;
+    font-size: 17px; font-weight: 700; cursor: pointer;
+  }
+  .list { list-style: none; margin: 10px 0 0; padding: 0 4px; flex: 1; overflow-y: auto; }
+  .list li {
+    display: flex; align-items: center; gap: 12px;
+    padding: 14px 0; font-size: 15px; cursor: pointer;
+  }
+  .list li .tag { color: var(--accent); font-weight: 500; }
+  .list li .tag.opt { color: var(--sub); }
+  .list li .more { margin-left: auto; color: #b0b5bd; font-size: 18px; }
+
+  .chk {
+    width: 24px; height: 24px; border-radius: 50%; flex: none;
+    border: 2px solid var(--check-off); position: relative;
+    transition: background .18s, border-color .18s;
+  }
+  .chk::after {
+    content: ""; position: absolute; left: 6px; top: 2.5px;
+    width: 6px; height: 11px; border: solid var(--check-off);
+    border-width: 0 2.4px 2.4px 0; transform: rotate(45deg);
+    transition: border-color .18s;
+  }
+  .on > .chk { background: var(--accent); border-color: var(--accent); }
+  .on > .chk::after { border-color: #fff; }
+
+  /* 버튼 */
+  .agree {
+    margin-top: 16px; width: 100%; border: 0; border-radius: 14px;
+    padding: 19px 0; font-size: 18px; font-weight: 700; font-family: inherit;
+    background: var(--accent); color: #fff; cursor: pointer;
+    transition: transform .08s, background .15s;
+  }
+  .agree:active { transform: scale(.98); background: var(--accent-press); }
+
+  /* 완료 화면 */
+  #done { align-items: center; justify-content: center; text-align: center; }
+  .badge {
+    width: 92px; height: 92px; border-radius: 50%; background: var(--accent);
+    position: relative; transform: scale(0);
+  }
+  .badge::after {
+    content: ""; position: absolute; left: 33px; top: 20px;
+    width: 22px; height: 40px; border: solid #fff; border-width: 0 6px 6px 0;
+    transform: rotate(45deg);
+  }
+  #done.active .badge { animation: pop .45s cubic-bezier(.2,1.4,.4,1) forwards; }
+  #done h2 { font-size: 24px; margin: 28px 0 8px; letter-spacing: -0.02em; }
+  #done p { color: var(--sub); margin: 0; font-size: 15px; }
+  .stamp { margin-top: 20px; font-size: 13px; color: #9aa0a8; font-variant-numeric: tabular-nums; }
+  @keyframes pop { to { transform: scale(1); } }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- 1. 동의 화면 -->
+  <section class="screen active" id="consent">
+    <div class="brand" id="brand"><i></i>온결</div>
+    <h1>서비스 이용을 위해<br>약관에 동의해 주세요</h1>
+    <p class="lead">동의하시면 바로 시작할 수 있어요.</p>
+
+    <div class="all" id="all"><span class="chk"></span>약관 전체 동의</div>
+    <ul class="list" id="list">
+      <li><span class="chk"></span><span><span class="tag">[필수]</span> 서비스 이용약관</span><span class="more">›</span></li>
+      <li><span class="chk"></span><span><span class="tag">[필수]</span> 개인정보 수집 및 이용</span><span class="more">›</span></li>
+      <li><span class="chk"></span><span><span class="tag">[필수]</span> 만 14세 이상입니다</span></li>
+      <li><span class="chk"></span><span><span class="tag opt">[선택]</span> 위치정보 이용</span><span class="more">›</span></li>
+      <li><span class="chk"></span><span><span class="tag opt">[선택]</span> 마케팅 정보 수신</span><span class="more">›</span></li>
+    </ul>
+
+    <button class="agree" id="agree">동의합니다</button>
+  </section>
+
+  <!-- 2. 완료 화면 -->
+  <section class="screen" id="done">
+    <div class="badge"></div>
+    <h2>동의가 완료되었습니다</h2>
+    <p>이제 서비스를 이용할 수 있어요.</p>
+    <div class="stamp" id="stamp"></div>
+  </section>
+
+</div>
+<script>
+  // 촬영용 소품: '동의합니다'는 항상 눌리며, 체크가 안 된 항목은 자동으로 모두 체크된 뒤 완료 화면으로 넘어갑니다.
+  // 초기화: 완료 화면을 길게 누르거나(0.8초), 상단 로고를 두 번 탭.
+  const all = document.getElementById('all');
+  const items = [...document.querySelectorAll('#list li')];
+  const consent = document.getElementById('consent');
+  const done = document.getElementById('done');
+
+  const sync = () => all.classList.toggle('on', items.every(li => li.classList.contains('on')));
+  items.forEach(li => li.addEventListener('click', () => { li.classList.toggle('on'); sync(); }));
+  all.addEventListener('click', () => {
+    const next = !all.classList.contains('on');
+    items.forEach(li => li.classList.toggle('on', next));
+    sync();
+  });
+
+  function showDone() {
+    const d = new Date(), p = n => String(n).padStart(2, '0');
+    document.getElementById('stamp').textContent =
+      `${d.getFullYear()}.${p(d.getMonth()+1)}.${p(d.getDate())} ${p(d.getHours())}:${p(d.getMinutes())} 동의`;
+    consent.classList.remove('active');
+    done.classList.add('active');
+    if (navigator.vibrate) navigator.vibrate(30);
+  }
+
+  document.getElementById('agree').addEventListener('click', () => {
+    const unchecked = items.filter(li => !li.classList.contains('on'));
+    if (!unchecked.length) return showDone();
+    unchecked.forEach((li, i) => setTimeout(() => { li.classList.add('on'); sync(); }, i * 90));
+    setTimeout(showDone, unchecked.length * 90 + 250);
+  });
+
+  function reset() {
+    items.forEach(li => li.classList.remove('on')); sync();
+    done.classList.remove('active');
+    consent.classList.add('active');
+  }
+  let t;
+  done.addEventListener('pointerdown', () => { t = setTimeout(reset, 800); });
+  ['pointerup', 'pointerleave', 'pointercancel'].forEach(e => done.addEventListener(e, () => clearTimeout(t)));
+  document.getElementById('brand').addEventListener('dblclick', reset);
+</script>
+</body>
+</html>
